@@ -2,5 +2,28 @@ dist: trusty
 jdk: oraclejdk8
 language: java
 services:
-  - postgresql
-  - docker
+- postgresql
+- docker
+env:
+  global:
+  - secure: T9lgJZC8q57+bE5MCWQjnzkIfOe3e9CzhxA6QA=
+  - secure: k4Yc2Wvclhqc79qQYMY8JBYVakDM2vwmfGRC28=
+  - secure: Ajcf4DIdVNLQ8jehT+rZ2fvUhHonszOECV6XTY=
+  - secure: F2Sfau7S2PQUIVZ4SMbe5XXkRdBCL2J3GiozTneHHuCOShf/l2SqnPuB04GFhmqopqFZfg7xQWsuFI1/2fXVFO1q9eXK90nhSW3zA4LYEyPaiQlbGZ/f3o0v6GhWJLatzF1N0pZLGvr8z332cY4Gsj9QFSb8yPmEXtbj+u+125Lxi0jgi/PAz2ohrizHqrOOSFJieAuFVdYiLkTXmlPdeGh5rA32Uo719elktKt0/ZuLOOs9Xz44EDmeNmz+Hr9lHgfnvNCJT90C2sjP24UqtxFruqHR41cV/XjACp4e8xbd12G/FwZw9KVpskgAiGR1SvAxpFKZXvjCikNRy933phh63uvqxguqmkQoiEswzmjioAIrQg7DnyF9LNbCZS34n021O2sDkdE4rAANtX9m0uVExhmBg9Gaj6yWmyEIex6ihFP5tOBGgICXA6HcsOI9cv6+NKJ5azekEFu5yQ9weXJt0SgvuVFIVOz3ObOyG4SQ2z1UkF0S3H6y54KcZcTH/pDcTyTDCev34kzvtpMDpi2EJ8DIdB1ZZH3iU6KJtTzE3CQ7Ft2KFfWJd+7MQ27n4gjSNQzBSZuxisK7rbT1FGNWQi++w19qOQZO2MLJYgHrdS0PFVwWNffq0rvwMD5q9uGS2nQJcSZh2niarRsERii/0vZhM3Fc7kl3kNLLqLY=
+  - secure: VpQKkiRHkGrs3BElTJcQ3xYOknyFnTmsKBZ6T1sc0TaFSRZ40AIBJO6222Q23c8egmHK03Pql2hXdk6erZvgFGbT/5q8sI/Zld02ZsZNONGbaRncqNxDa8k5zASgwFmVf4s/L15YapQJOSPX4TKB2VEpctaQ0b0HQY9jrYvJCJqLdsnRVbOKNriXQWkJKrE5s3kqJ8Jg/HbQVq1WkYJZdY9wbmZ85aMG5c6XvCzoS9xWiqsm6Ni6kxTo7uKWxn8k2S/mQTJIL5/+dqzkbdfa1NPx/FtltijeVUP+3754878aZ0QtN8RiMe9mOY6jgai2RZ5cyH/EkseR2K1Yzgn9RX3fXOC8vLHFl3M8RDf0D035CKaYaJ6MjP8c/P7u5MjnoTyMK52gVNZdmqxc3EeDIC5GimMUSn8FMHxdt3TuBfA0O+2Kua8pm2hp2GG7DVSTG/PETsqEk1cp0OMTZGEWVOJh+uqD7sR5oxhQ8XwbvQ+hd4f8oGGT7hD6CQA4piN/9Ekxw05zpGwYabYuait/nQ3YNxSf9NQ4kBhfn3ujW8nlJo4I0Y9m8Xl9EIcGFFcUFJJOo8/oJqRbzoGfJKHUTToWZo/yl99Te6ltEIMPzP6PhLlogPn7N14QwuD7ELpJg4PMgo67RHKMOOKgyxAj+NgWgjv0zR8s2lbSo4RJdQE=
+  - secure: qdDsi6GSLLLwXgBTW2ri15hqIVdvcOmJPQfxEAyRJQEwCWZr5HBDzPxcW82gELJfvsscSQSNmE6WrB7oOIZtNu73JCpi/sBdPXQN6rvIaIFv7hBus2UGYP64LRWHjmrxSUJwvazoN7/CBYp2id6PciEyydlPLyMcL3YkVtH1S3jqG3wyk5rOuyrYLbkLRW0fzJMl08nmTvyPIVOx8f7MxMaFFWmBbNhvRBknheC9JM0UloR2pf7ZHJlyNS4EbRQjrJ3KSp0Pjsv5+iafUfqcR2YTTGtuWamJZu/FeqQQJtqglMUbRRqwZ7/ZbJ4uxVmM55G9ssbtVaLv/GycV//QGHM2NOosETAV66V/M3oHGMUduoCZjZbR/E4Me973l7jQH6MVDfp65RZlWNSeKjHGocFognrt+LwUtRbmFT5HLd+YB3ydNBfaQuddESY67WN9UNhbDtgyB9m5I5iP/hGHv4e0kYbqUFcVWB0/D50uQoA8ETdzZ0DqWCI9DTY71+EnNbrNStPIAmKYePt9q5bNETDcVrT12ZnuRZX2qW742jH+lU2hFYWDE1oXKaWlIXHWFXXlcU/ROWeFfStPF+HkywFF2ZxqpTjyc7moJPQbAzQlEsPdeaWLFcM6kf9UaXDmS6QaJlJnE7yHzRVBFLq2gvZKap2vxvu+qzxAK1MfNk0=
+  - COMMIT=${TRAVIS_COMMIT::7}
+script:
+- "./mvnw clean install -B"
+after_success:
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export TAG=`if [ "$TRAVIS_BRANCH" == "main" ]; then echo "latest"; else echo "$TRAVIS_BRANCH";
+  fi`
+- export IMAGE_NAME=bbdocker01/my-repository
+- docker build -t $IMAGE_NAME:latest .
+- docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
+- docker push $IMAGE_NAME:$TAG
+deploy:
+  provider: heroku
+  api_key: "$HEROKU_API_KEY"
+  app: simplelab-bg
