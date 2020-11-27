@@ -8,7 +8,7 @@
 Приложение представляет из себя простой микросервис, реализующий CRUD на примере внутренней базы. Для работы приложения требуется запущенная БД postgresql.
 
 # Подготовка базы данных
-В файле ./src/main/resources/application.properties следует указать в параметре spring.datasource.username = имя пользователя для доступа в БД, в параметре spring.datasource.password = пароль для доступа к БД. В параметре spring.datasource.url = необходимо указать адрес для доступа к БД, например для доступа к БД запущенной на локальном компьютере значение будет jdbc:postgresql://localhost:5432/postgresql, для БД запущенной в docker на локальной машине значение будет jdbc:postgresql://172.17.0.1:5432/postgresql.
+В файле ./src/main/resources/application.properties следует указать в параметре spring.datasource.username = имя пользователя для доступа в БД, в параметре spring.datasource.password = пароль для доступа к БД. В параметре spring.datasource.url = необходимо указать адрес для доступа к БД, например для доступа к БД запущенной на локальном компьютере значение будет jdbc:postgresql://localhost:8080:5432/postgresql, для БД запущенной в docker на локальной машине значение будет jdbc:postgresql://172.17.0.1:5432/postgresql.
 Нужно запустить postgresql с помощью docker используя комманду 
 - docker run -e POSTGRES_PASSWORD=root -p 5432:5432 postgres .
 Создание схемы базы данных осуществляется с помощью ./src/main/resources/schema.sql. 
@@ -30,19 +30,22 @@
 Формат JSON: {name: "varchar", brand: "varchar",price "integer", quantity: "integer"}
 
 # Получить список:
-curl -X GET http://127.0.0.1:8080/api/v1/product В ответ будет получен JSON.
+curl -X GET http://localhost:8080:8080/api/v1/product В ответ будет получен JSON.
 
 # Получить запись по id:
-curl -X GET http://127.0.0.1:8080/api/v1/product/{id} В ответ будет получен JSON с результатом.
+curl -X GET http://localhost:8080:8080/api/v1/product/{id} В ответ будет получен JSON с результатом.
+
+# Обновить запись:
+curl -X POST http://localhost:8080/api/v1/product/{id} -d '{"name": "новое продукт", "brand": "новый бренд", "price": 10000, "quantity": 1000}' -H "Content-Type:application/json".
 
 # Добавить запись:
-curl -X POST http://127.0.0.1:8080/api/v1/product -d ‘{«name»: "новое продукт″, "brand": "новый бренд", "price": 10000, "quantity": 1000}’ -H «Content-Type:application/json» В ответ будет получен статус 200 ОК.
+curl -X POST http://localhost:8080/api/v1/product -d '{"name": "новый продукт", "brand": "новый бренд", "price": 10000, "quantity": 1000}' -H "Content-Type:application/json" В ответ будет получен JSON с новой записью.
 
 # Удалить запись:
-curl -i -X DELETE http://127.0.0.1:8080/api/v1/product/{id} В ответ будет получен статус 204 No Content.
+curl -i -X DELETE http://localhost:8080/api/v1/product/{id} В ответ будет получен статус 204 No Content.
 
 #Также приложение возвращает значение hostname:
-curl -X GET http://127.0.0.1:8080/api/v1/status В ответ будет получен JSON в виде {hostname: "hostname", "helloWord": "hello", "sweetDays": "daaa"}.
+curl -X GET http://localhost:8080/api/v1/status В ответ будет получен JSON в виде {hostname: "hostname", "helloWord": "hello", "sweetDays": "daaa"}.
 # Лабораторная работа №3: CI/CD и деплой приложения в Heroku
 # Цель работы: 
 ## Целью лабораторной работы является знакомство с CI/CD и его реализацией на примере Travis CI и Heroku.
