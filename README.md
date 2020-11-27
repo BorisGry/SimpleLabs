@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/BorisGry/SimpleLabs.svg?branch=main)](https://travis-ci.com/BorisGry/SimpleLabs)
 # Технология разработки программного обеспечения
 ## Лабораторная работа №1: создание микросервиса на Spring Boot с базой данных
 # Грязнов Борис Валерьевич, Группа 3MAC2001
@@ -42,3 +43,11 @@ curl -i -X DELETE http://127.0.0.1:8080/api/v1/product/{id} В ответ буд
 
 #Также приложение возвращает значение hostname:
 curl -X GET http://127.0.0.1:8080/api/v1/status В ответ будет получен JSON в виде {hostname: "hostname", "helloWord": "hello", "sweetDays": "daaa"}.
+# Лабораторная работа №3: CI/CD и деплой приложения в Heroku
+# Цель работы: 
+## Целью лабораторной работы является знакомство с CI/CD и его реализацией на примере Travis CI и Heroku.
+
+## Ссылка на развернутое приложение: 
+- [Поулчение status в приложении](https://simplelab-bg.herokuapp.com/api/v1/status) 
+- [Получение всех продуктов](https://simplelab-bg.herokuapp.com/api/v1/product)
+- [Получение конкретного продукта](https://simplelab-bg.herokuapp.com/api/v1/product/4)
