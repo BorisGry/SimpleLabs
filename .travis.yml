@@ -4,6 +4,8 @@ language: java
 services:
 - postgresql
 - docker
+before_install:
+  - chmod +x mvnw
 env:
   global:
   - secure: T9lgJZC8q57+bE5MCWQjnzkIfOe3e9CzhxA6QA=
