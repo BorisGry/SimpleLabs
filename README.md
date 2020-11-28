@@ -46,6 +46,58 @@ curl -i -X DELETE http://localhost:8080/api/v1/product/{id} В ответ буд
 
 #Также приложение возвращает значение hostname:
 curl -X GET http://localhost:8080/api/v1/status В ответ будет получен JSON в виде {hostname: "hostname", "helloWord": "hello", "sweetDays": "daaa"}.
+
+## Лабораторная работа №2: создание кластера Kubernetes и деплой приложения
+Целью лабораторной работы является знакомство с кластерной архитектурой на примере Kubernetes, а также деплоем приложения в кластер.
+#### Манифесты 
+- deployment.yaml
+>
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: my-deployment
+    spec:
+      replicas: 5
+      selector:
+        matchLabels:
+          app: my-app
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 1
+        type: RollingUpdate
+      template:
+        metadata:
+          labels:
+            app: my-app
+        spec:
+          containers:
+            - image: simplelab:latest
+              imagePullPolicy: Never 
+              name: simplelab
+              ports:
+                - containerPort: 8080
+          hostAliases:
+          - ip: "192.168.49.1"
+            hostnames:
+            - postgres.localhost
+
+- service.yaml
+>
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: my-service
+    spec:
+      type: NodePort
+      ports:
+        - nodePort: 31317
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        app: my-app
+        
 # Лабораторная работа №3: CI/CD и деплой приложения в Heroku
 # Цель работы: 
 ## Целью лабораторной работы является знакомство с CI/CD и его реализацией на примере Travis CI и Heroku.
